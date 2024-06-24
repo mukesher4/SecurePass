@@ -1,3 +1,4 @@
+import random
 class Print():
 	def __init__(self):
 		self.colors={"red":31,"yellow":33,"default":0,"underline":4,"white":37,"green":32}
@@ -18,4 +19,8 @@ class Print():
 			t=f"\33[{self.colors[color]}m"+text
 
 		print('{:^115}'.format(t))
+	def generate_random_ansi(self):
+		return random.choice([f"\033[1;3{i}m]" for i in range(0,8)])
+
+
 

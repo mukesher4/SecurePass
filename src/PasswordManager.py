@@ -10,10 +10,10 @@ class PasswordManager:
 		self.AccountType = {1 : "Website" , 2 : "App" , 3 : "Mail"} 
 
 	def add_password(self, authHash, decryptedVault, FireBase, EncryptionUtil):
-		print("\t\t\t\t\t\t(1) Website")
-		print("\t\t\t\t\t\t(2) Application")
-		print("\t\t\t\t\t\t(3) E-Mail")
-		print("\t\t\t\t\t\t(4) Return back")
+		print("\t\t\t\t\t\t\033[1;33m(1)\033[0m Website")
+		print("\t\t\t\t\t\t\033[1;33m(2)\033[0m Application")
+		print("\t\t\t\t\t\t\033[1;33m(3)\033[0m E\033[1;31m-\033[0mMail")
+		print("\t\t\t\t\t\t\033[1;33m(4)\033[0m Return\033[1;31m_\033[0mback")
 
 		try:
 			account_type_choice = int(input("\n>>> Enter Your \33[1m\33[33mChoice\33[0m: "))
@@ -32,7 +32,7 @@ class PasswordManager:
 				pass 
 
 		if account_type_choice==4:
-			return
+			pass
 
 		else:
 			self.account_type = input(f"\n>>> Enter \33[1m\33[33m{self.AccountType[account_type_choice]}\33[0m : ")
@@ -47,12 +47,11 @@ class PasswordManager:
 				print()
 				print("\033[1m\033[32mGenerated Password successfully\033[0m")
 
-			# decryptedVault += f"{account_type_choice}~^~{self.account_type}~^~{username}~^~{password}\n"
 			decryptedVault.append(f"{account_type_choice}~^~{self.account_type}~^~{username}~^~{password}")
 
 			FireBase.insertData(EncryptionUtil.encryption(decryptedVault))
 
-			return decryptedVault
+		return decryptedVault
 
 	def removePassword(self, sno, decryptedVault, FireBase, EncryptionUtil):
 		if len(decryptedVault) >= sno:
@@ -63,28 +62,32 @@ class PasswordManager:
 			return None
 
 	def displayAll(self, decryptedVault):
+		Printer=Print()
+
 		number_of_records=0
 		record=[]
 		for line in decryptedVault:
 			data = line.split("~^~")
 			number_of_records+=1
 			password = data[-1]
-			record.append([number_of_records,data[2],self.AccountType[int(data[0])],data[1],password])
+			record.append([str(number_of_records)+".",data[2],self.AccountType[int(data[0])],data[1],password])
 
 		if len(record)!=0:
 			print()
-			print("          ------------------------------------------------------------------------------------------")
-			print("          | S.No |     Username       |    Account Type    |      Service       |      Password     |")
-			print("          ------------------------------------------------------------------------------------------")        
+			print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")
+			print("        \033[1;31m|\033[0m \033[1;34mS.No\033[0m \033[1;31m|\033[0m     \033[1;34mUsername\033[0m       \033[1;31m|\033[0m \033[1;34mAccount Type\033[0m \033[1;31m|\033[0m          \033[1;34mService\033[0m           \033[1;31m|\033[0m      \033[1;34mPassword\033[0m      \033[1;31m|\033[0m")
+			print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			for i in range(len(record)):
-				print(f"          | {record[i][0]:<3}  | {record[i][1]:<18} | {record[i][2]:<18} | {record[i][3]:<18} | {record[i][4]:<17} |")
-				print("          ------------------------------------------------------------------------------------------")        
+				print(f"        \033[1;31m|\033[0m {record[i][0]:<3}  \033[1;31m|\033[0m {record[i][1]:<18} \033[1;31m|\033[0m {record[i][2]:<12} \033[1;31m|\033[0m {record[i][3]:<26} \033[1;31m|\033[0m {Printer.generate_random_ansi()}{record[i][4]:<18}\033[0m\033[1;31m|\033[0m")
+				print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			print()
 			return True
 		else:
 			return False
 
 	def display(self, username, decryptedVault):
+		Printer=Print()
+
 		number_of_records=0
 		record=[]
 		for line in decryptedVault:
@@ -92,16 +95,16 @@ class PasswordManager:
 			if data[2] == username:
 				number_of_records+=1
 				password = data[-1]
-				record.append([number_of_records,self.AccountType[int(data[0])],data[1],password])
+				record.append([str(number_of_records)+".",data[2],self.AccountType[int(data[0])],data[1],password])
 
 		if len(record)!=0:
 			print()
-			print("                       ----------------------------------------------------------------------")
-			print("                       | S.No |    Account Type    |      Service       |      Password     |")
-			print("                       ----------------------------------------------------------------------")        
+			print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")
+			print("        \033[1;31m|\033[0m \033[1;34mS.No\033[0m \033[1;31m|\033[0m     \033[1;34mUsername\033[0m       \033[1;31m|\033[0m \033[1;34mAccount Type\033[0m \033[1;31m|\033[0m          \033[1;34mService\033[0m           \033[1;31m|\033[0m      \033[1;34mPassword\033[0m      \033[1;31m|\033[0m")
+			print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			for i in range(len(record)):
-				print(f"                       | {record[i][0]:<3}  | {record[i][1]:<18} | {record[i][2]:<18} | {record[i][3]:<17} |")
-				print("                       ----------------------------------------------------------------------")
+				print(f"        \033[1;31m|\033[0m {record[i][0]:<3}  \033[1;31m|\033[0m {record[i][1]:<18} \033[1;31m|\033[0m {record[i][2]:<12} \033[1;31m|\033[0m {record[i][3]:<26} \033[1;31m|\033[0m {Printer.generate_random_ansi()}{record[i][4]:<18}\033[0m\033[1;31m|\033[0m")
+				print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			print()
 			return True
 		else:
