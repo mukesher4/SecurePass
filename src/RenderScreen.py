@@ -11,7 +11,6 @@ class RenderScreen:
 	def AuthScreen():
 		Printer=Print()
 		Printer.bold()
-
 		Printer.red(open("./asciiart","r").read())
 
 		print('\n\n\n')

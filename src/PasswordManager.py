@@ -78,7 +78,11 @@ class PasswordManager:
 			print("        \033[1;31m|\033[0m \033[1;34mS.No\033[0m \033[1;31m|\033[0m     \033[1;34mUsername\033[0m       \033[1;31m|\033[0m \033[1;34mAccount Type\033[0m \033[1;31m|\033[0m          \033[1;34mService\033[0m           \033[1;31m|\033[0m      \033[1;34mPassword\033[0m      \033[1;31m|\033[0m")
 			print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			for i in range(len(record)):
-				print(f"        \033[1;31m|\033[0m {record[i][0]:<3}  \033[1;31m|\033[0m {record[i][1]:<18} \033[1;31m|\033[0m {record[i][2]:<12} \033[1;31m|\033[0m {record[i][3]:<26} \033[1;31m|\033[0m {Printer.generate_random_ansi()}{record[i][4]:<18}\033[0m\033[1;31m|\033[0m")
+				if record[i][2] == "App": color = Printer.appColor()
+				elif record[i][2] == "Mail": color = Printer.mailColor()
+				elif record[i][2] == "Website": color = Printer.websiteColor()
+				
+				print(f"        \033[1;31m|\033[0m {record[i][0]:<3}  \033[1;31m|\033[0m {record[i][1]:<18} \033[1;31m|\033[0m {color}{record[i][2]:<12}\033[0m \033[1;31m|\033[0m {record[i][3]:<26} \033[1;31m|\033[0m {color}{record[i][4]:<18}\033[0m\033[1;31m|\033[0m")
 				print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			print()
 			return True
@@ -103,7 +107,11 @@ class PasswordManager:
 			print("        \033[1;31m|\033[0m \033[1;34mS.No\033[0m \033[1;31m|\033[0m     \033[1;34mUsername\033[0m       \033[1;31m|\033[0m \033[1;34mAccount Type\033[0m \033[1;31m|\033[0m          \033[1;34mService\033[0m           \033[1;31m|\033[0m      \033[1;34mPassword\033[0m      \033[1;31m|\033[0m")
 			print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			for i in range(len(record)):
-				print(f"        \033[1;31m|\033[0m {record[i][0]:<3}  \033[1;31m|\033[0m {record[i][1]:<18} \033[1;31m|\033[0m {record[i][2]:<12} \033[1;31m|\033[0m {record[i][3]:<26} \033[1;31m|\033[0m {Printer.generate_random_ansi()}{record[i][4]:<18}\033[0m\033[1;31m|\033[0m")
+				if record[i][2] == "App": color = Printer.appColor()
+				elif record[i][2] == "Mail": color = Printer.mailColor()
+				elif record[i][2] == "Website": color = Printer.websiteColor()
+				
+				print(f"        \033[1;31m|\033[0m {record[i][0]:<3}  \033[1;31m|\033[0m {record[i][1]:<18} \033[1;31m|\033[0m {color}{record[i][2]:<12}\033[0m \033[1;31m|\033[0m {record[i][3]:<26} \033[1;31m|\033[0m {color}{record[i][4]:<18}\033[0m\033[1;31m|\033[0m")
 				print("         \033[1;31m--------------------------------------------------------------------------------------------\033[0m")        
 			print()
 			return True
